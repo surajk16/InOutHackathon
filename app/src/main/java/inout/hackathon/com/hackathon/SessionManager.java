@@ -37,6 +37,7 @@ public class SessionManager {
         editor.putBoolean(KEY_IS_LOGGEDIN, isLoggedIn);
         editor.putString(KEY_EMAIL,email);
         Constants.EMAIL = email;
+        Log.d("setLogin",""+Constants.EMAIL);
         // commit changes
         editor.commit();
 
@@ -45,7 +46,8 @@ public class SessionManager {
 
     public boolean isLoggedIn(){
         if (pref.getBoolean(KEY_IS_LOGGEDIN, false)) {
-            pref.getString(KEY_EMAIL,Constants.EMAIL);
+            Constants.EMAIL = pref.getString(KEY_EMAIL,"DEFAULT");
+            Log.d("isLoggedin",""+Constants.EMAIL);
             return true;
         }
         else

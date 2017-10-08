@@ -28,6 +28,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import static inout.hackathon.com.hackathon.Constants.session;
+
 /**
  * Created by suraj on 07-10-2017.
  */
@@ -39,7 +41,6 @@ public class LoginActivity extends Activity {
     private EditText inputEmail;
     private EditText inputPassword;
     private ProgressDialog pDialog;
-    private SessionManager session;
     private String reply;
     //private SQLiteHandler db;
 
@@ -61,11 +62,12 @@ public class LoginActivity extends Activity {
         //db = new SQLiteHandler(getApplicationContext());
 
         // Session manager
-        session = new SessionManager(getApplicationContext());
+        if (session==null) session = new SessionManager(getApplicationContext());
+
 
         // Check if user is already logged in or not
+
         if (session.isLoggedIn()) {
-            // User is already logged in. Take him to main activity
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
@@ -199,7 +201,7 @@ public class LoginActivity extends Activity {
             try {
                 JSONObject j = new JSONObject(reply);
                 if ((boolean)j.get("success")) {
-                    session.setLogin(true,email);
+                    Constants.session.setLogin(true,email);
                     Intent intent = new Intent(LoginActivity.this,
                             MainActivity.class);
                     startActivity(intent);

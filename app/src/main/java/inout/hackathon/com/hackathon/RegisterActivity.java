@@ -35,7 +35,6 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText inputPassword;
     private EditText inputContact;
     private ProgressDialog pDialog;
-    private SessionManager session;
     private  String reply;
 
     @Override
@@ -56,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
         pDialog.setCancelable(false);
 
         // Session manager
-        session = new SessionManager(getApplicationContext());
+        Constants.session = new SessionManager(getApplicationContext());
 
 
         btnRegister.setOnClickListener(new View.OnClickListener() {

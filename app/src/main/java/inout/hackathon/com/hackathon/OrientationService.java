@@ -44,7 +44,7 @@ public class OrientationService extends Service {
                         pitch = (float) Math.toDegrees(orientationData[1]);
                         roll = (float) Math.toDegrees(orientationData[2]);
 
-                        Log.d("angle","azi:"+azimuth+" pitch:"+pitch+" roll:"+roll);
+                        //Log.d("angle","azi:"+azimuth+" pitch:"+pitch+" roll:"+roll);
                     }
                 }
             }

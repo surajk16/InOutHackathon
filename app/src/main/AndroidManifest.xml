@@ -3,6 +3,9 @@
     package="inout.hackathon.com.hackathon">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -26,7 +29,21 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <service android:name=".GPS_Service" />
+        <service
+            android:name=".OrientationService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".DetectService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver android:name=".MyBroadcastReceiver"></receiver>
+
+        <activity android:name=".Detect"/>
     </application>
 
 </manifest>
