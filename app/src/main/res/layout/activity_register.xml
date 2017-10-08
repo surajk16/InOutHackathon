@@ -79,11 +79,36 @@
             android:textColor="@color/input_register"
             android:textColorHint="@color/input_register_hint" />
 
+        <EditText
+            android:id="@+id/blood"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@color/input_register_bg"
+            android:hint="@string/hint_blood"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/input_register"
+            android:textColorHint="@color/input_register_hint" />
+
+        <EditText
+            android:id="@+id/emergencycon"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@color/input_register_bg"
+            android:hint="@string/hint_emergency"
+            android:inputType="phone"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/input_register"
+            android:textColorHint="@color/input_register_hint" />
+
         <Button
             android:id="@+id/btnRegister"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:padding="15dp"
             android:background="@color/btn_login_bg"
             android:text="@string/btn_register"
@@ -95,7 +120,7 @@
             android:id="@+id/btnLinkToLoginScreen"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dip"
+            android:layout_marginTop="5dp"
             android:background="@null"
             android:text="@string/btn_link_to_login"
             android:textAllCaps="false"

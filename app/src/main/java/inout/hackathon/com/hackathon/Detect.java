@@ -30,7 +30,7 @@ import java.net.SocketTimeoutException;
 import java.net.URL;
 
 public class Detect extends Activity {
-    Button yes,no;
+    Button yes, no;
     TextView cntdown;
     private String reply;
     private Boolean done;
@@ -51,46 +51,50 @@ public class Detect extends Activity {
         new CountDownTimer(10000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                cntdown.setText(""+(millisUntilFinished/1000));
+                cntdown.setText("" + (millisUntilFinished / 1000));
             }
 
             public void onFinish() {
-                done = true;
-                yes.setVisibility(View.INVISIBLE);
-                no.setVisibility(View.INVISIBLE);
-                Toast.makeText(getApplicationContext(),"Time expired. Sending details.",Toast.LENGTH_LONG).show();
-                new SendDetails().execute();
-                Constants.MP.stop();
-                cntdown.setText("0");
+                if (!done) {
+                    done = true;
+                    yes.setVisibility(View.INVISIBLE);
+                    no.setVisibility(View.INVISIBLE);
+                    Toast.makeText(getApplicationContext(), "Time expired. Sending details.", Toast.LENGTH_LONG).show();
+                    new SendDetails().execute();
+                    Constants.MP.stop();
+                    cntdown.setText("0");
+                }
             }
         }.start();
 
         yes.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (!done) {
-                        //Toast.makeText(getApplicationContext(), "Yes", Toast.LENGTH_LONG).show();
-                        Constants.MP.stop();
-                        startService(new Intent(getApplicationContext(), DetectService.class));
-                        startService(new Intent(getApplicationContext(), GPS_Service.class));
-                        Constants.STATUS = "START";
-                        finish();
-                    }
+            @Override
+            public void onClick(View view) {
+                if (!done) {
+                    //Toast.makeText(getApplicationContext(), "Yes", Toast.LENGTH_LONG).show();
+                    Constants.MP.stop();
+                    startService(new Intent(getApplicationContext(), DetectService.class));
+                    startService(new Intent(getApplicationContext(), GPS_Service.class));
+                    Constants.STATUS = "START";
+                    done = true;
+                    finish();
                 }
-            });
+            }
+        });
 
         no.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (!done) {
-                        //Toast.makeText(getApplicationContext(), "No", Toast.LENGTH_LONG).show();
-                        Constants.MP.stop();
-                        new SendDetails().execute();
-                        finish();
-                    }
+            @Override
+            public void onClick(View view) {
+                if (!done) {
+                    //Toast.makeText(getApplicationContext(), "No", Toast.LENGTH_LONG).show();
+                    Constants.MP.stop();
+                    done = true;
+                    new SendDetails().execute();
+                    finish();
                 }
-            });
-        }
+            }
+        });
+    }
 
     private void showError(String s) {
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
@@ -102,13 +106,13 @@ public class Detect extends Activity {
         protected Void doInBackground(Void... voids) {
             HttpURLConnection client = null;
             try {
-                URL url = new URL (getResources().getString(R.string.base_url)+"/accident/create");
+                URL url = new URL(getResources().getString(R.string.base_url) + "/accident/create");
                 client = (HttpURLConnection) url.openConnection();
                 client.setRequestMethod("POST");
                 client.setRequestProperty("emailid", Constants.EMAIL.trim());
-                Log.d("email",""+Constants.EMAIL);
+                Log.d("email", "" + Constants.EMAIL);
                 client.setRequestProperty("severity", Constants.SEVERITY.trim());
-                client.setRequestProperty("location", Constants.LOC.getLatitude()+","+Constants.LOC.getLongitude());
+                client.setRequestProperty("location", Constants.LOC.getLatitude() + "," + Constants.LOC.getLongitude());
                 client.setDoOutput(true);
 
                 OutputStream outputPost = new BufferedOutputStream(client.getOutputStream());
@@ -150,10 +154,9 @@ public class Detect extends Activity {
 
             try {
                 JSONObject j = new JSONObject(reply);
-                if ((boolean)j.get("success")) {
-                    Toast.makeText(getApplicationContext(),"Help will arrive soon!",Toast.LENGTH_LONG).show();
-                }
-                else {
+                if ((boolean) j.get("success")) {
+                    Toast.makeText(getApplicationContext(), "Help will arrive soon!", Toast.LENGTH_LONG).show();
+                } else {
                     showError((String) j.get("message"));
                 }
             } catch (JSONException e) {

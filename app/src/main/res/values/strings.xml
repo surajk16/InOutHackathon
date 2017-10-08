@@ -2,7 +2,7 @@
     <string name="app_name">Hackathon</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
-    <string name="hint_name">Fullname</string>
+    <string name="hint_name">Full Name</string>
     <string name="hint_contact">Contact</string>
     <string name="btn_login">LOG IN</string>
     <string name="btn_register">REGISTER</string>
@@ -21,4 +21,6 @@
     <string name="start_text">You might be at risk! Protect yourself.</string>
     <string name="stop_text">You\'re life is safe at our hands. :)</string>
     <string name="detect">We detected a crash.\nWere we wrong?</string>
+    <string name="hint_blood">Blood Group</string>
+    <string name="hint_emergency">Emergency Contact</string>
 </resources>

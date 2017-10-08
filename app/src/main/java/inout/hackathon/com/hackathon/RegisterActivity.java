@@ -34,8 +34,10 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText inputEmail;
     private EditText inputPassword;
     private EditText inputContact;
+    private EditText inputBlood;
+    private EditText emergencyContact;
     private ProgressDialog pDialog;
-    private  String reply;
+    private String reply;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,8 @@ public class RegisterActivity extends AppCompatActivity {
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
         inputContact = (EditText) findViewById(R.id.contact);
+        inputBlood = (EditText) findViewById(R.id.blood);
+        emergencyContact = (EditText) findViewById(R.id.emergencycon);
         btnRegister = (Button) findViewById(R.id.btnRegister);
         btnLinkToLogin = (Button) findViewById(R.id.btnLinkToLoginScreen);
 
@@ -64,8 +68,11 @@ public class RegisterActivity extends AppCompatActivity {
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
                 String contact = inputContact.getText().toString().trim();
+                String blood = inputBlood.getText().toString().trim();
+                String emergency = emergencyContact.getText().toString().trim();
 
-                if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && !contact.isEmpty()) {
+                if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && !contact.isEmpty()
+                        && !blood.isEmpty() && !emergency.isEmpty()) {
                     new RegisterVerify().execute();
 
                 } else {
@@ -111,7 +118,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     class RegisterVerify extends AsyncTask<Void, Void, Void> {
-        String name,email,password,contact;
+        String name, email, password, contact, blood, emergency;
 
         @Override
         protected void onPreExecute() {
@@ -121,19 +128,24 @@ public class RegisterActivity extends AppCompatActivity {
             email = inputEmail.getText().toString().trim();
             password = inputPassword.getText().toString().trim();
             contact = inputContact.getText().toString().trim();
+            blood = inputBlood.getText().toString().trim();
+            emergency = emergencyContact.getText().toString().trim();
+
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
             HttpURLConnection client = null;
             try {
-                URL url = new URL (getResources().getString(R.string.base_url)+"/users/register");
+                URL url = new URL(getResources().getString(R.string.base_url) + "/users/register");
                 client = (HttpURLConnection) url.openConnection();
                 client.setRequestMethod("POST");
                 client.setRequestProperty("name", name);
                 client.setRequestProperty("emailId", email);
                 client.setRequestProperty("password", password);
                 client.setRequestProperty("contact", contact);
+                client.setRequestProperty("blood", blood);
+                client.setRequestProperty("emergency", emergency);
                 client.setDoOutput(true);
 
                 OutputStream outputPost = new BufferedOutputStream(client.getOutputStream());
@@ -177,12 +189,11 @@ public class RegisterActivity extends AppCompatActivity {
             hideDialog();
             try {
                 JSONObject j = new JSONObject(reply);
-                if ((boolean)j.get("success")) {
-                    Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                if ((boolean) j.get("success")) {
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
                     finish();
-                }
-                else {
+                } else {
                     showError((String) j.get("message"));
                 }
             } catch (JSONException e) {
