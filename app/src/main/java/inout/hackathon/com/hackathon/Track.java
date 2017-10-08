@@ -19,6 +19,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import static inout.hackathon.com.hackathon.Constants.MP;
+
 /**
  * Created by suraj on 07-10-2017.
  */
@@ -32,6 +34,7 @@ public class Track extends Fragment {
     public void onResume() {
         super.onResume();
         Log.d("track","onResume");
+        if((MP!=null)&&MP.isPlaying()) MP.pause();
         if (broadcastReceiver == null) {
             broadcastReceiver = new BroadcastReceiver() {
                 @Override

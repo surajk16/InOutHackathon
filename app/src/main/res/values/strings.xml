@@ -14,7 +14,7 @@
     <string name="login">LOGIN</string>
     <string name="register">REGISTER</string>
     <string name="base_url">http://10.1.26.38:3000</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Phonetection</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="logout">Logout</string>

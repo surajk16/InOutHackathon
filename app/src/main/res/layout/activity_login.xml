@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/bg_login"
-    android:gravity="center"
+
     android:orientation="vertical"
     android:padding="10dp">
 
@@ -13,7 +13,21 @@
         android:layout_gravity="center"
         android:orientation="vertical"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:paddingRight="20dp"
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:id="@+id/appName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:fontFamily="casual"
+            android:text="PHONETECTION"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:typeface="normal" />
 
         <TextView
             android:id="@+id/textView"
@@ -23,7 +37,8 @@
             android:textAlignment="center"
             android:textSize="30sp"
             android:layout_marginBottom="30dp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:layout_marginTop="40dp"/>
 
         <EditText
             android:id="@+id/email"

@@ -3,6 +3,7 @@ package inout.hackathon.com.hackathon;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -52,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
 
         Constants.DETECT = new BooVariable();
         Constants.DETECT.setBoo(false);
+        Constants.LOC = new Location("test");
+        Constants.LOC.setLatitude(12.920395);
+        Constants.LOC.setLongitude(77.684737);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

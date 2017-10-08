@@ -28,6 +28,7 @@ public class DetectService extends Service {
                 Log.d("detect","detected");
                 if (Constants.DETECT.isBoo()) {
                     stopSelf();
+                    Constants.DETECT.setBoo(false);
                     setAlarm();
                 }
             }

@@ -144,8 +144,8 @@ public class RegisterActivity extends AppCompatActivity {
                 client.setRequestProperty("emailId", email);
                 client.setRequestProperty("password", password);
                 client.setRequestProperty("contact", contact);
-                client.setRequestProperty("blood", blood);
-                client.setRequestProperty("emergency", emergency);
+                client.setRequestProperty("bloodgroup", blood);
+                client.setRequestProperty("emergencycontacts", emergency);
                 client.setDoOutput(true);
 
                 OutputStream outputPost = new BufferedOutputStream(client.getOutputStream());

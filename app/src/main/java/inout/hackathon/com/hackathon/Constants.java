@@ -15,4 +15,7 @@ public class Constants {
     public static Location LOC;
     public static String SEVERITY;
     public static String STATUS;
+    public static String NAME;
+    public static String BLOOD;
+    public static String EMERG;
 }

@@ -34,9 +34,9 @@ public class GPS_Service extends Service {
     private LocationManager locationManager;
     ArrayList<Double> time;
     ArrayList<Location> loc;
-    Double v1,v2;
+    Double v1, v2;
 
-    public GPS_Service () {
+    public GPS_Service() {
     }
 
 
@@ -55,14 +55,14 @@ public class GPS_Service extends Service {
             @Override
             public void onLocationChanged(Location location) {
                 loc.add(location);
-                time.add((double) (System.currentTimeMillis()/1000));
+                Constants.LOC = location;
+                time.add((double) (System.currentTimeMillis() / 1000));
 
-                if (loc.size()>=4) {
+                if (loc.size() >= 4) {
                     loc.remove(0);
                     time.remove(0);
                     calculateVelocity();
-                }
-                else if (loc.size()==3)
+                } else if (loc.size() == 3)
                     calculateVelocity();
             }
 
@@ -87,28 +87,30 @@ public class GPS_Service extends Service {
         locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
 
         //noinspection MissingPermission
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000,0,listener);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, listener);
+
     }
+
 
     private void calculateVelocity() {
         float d1 = loc.get(0).distanceTo(loc.get(1));
         float d2 = loc.get(1).distanceTo(loc.get(2));
 
-        v1 = d1/(time.get(1)-time.get(0));
-        v2 = d2/(time.get(2)-time.get(1));
+        v1 = d1 / (time.get(1) - time.get(0));
+        v2 = d2 / (time.get(2) - time.get(1));
 
-        Log.d("velocity",""+(v2-v1));
+        //Log.d("velocity",""+(v2-v1));
 
-        if ((v2-v1)<-5) {
+        if ((v2 - v1) < -5) {
             stopSelf();
             Constants.DETECT.setBoo(true);
-            Constants.LOC = loc.get(loc.size()-1);
-            if ((v2-v2)<-14)
+            Constants.LOC = loc.get(loc.size() - 1);
+            if ((v2 - v2) < -14)
                 Constants.SEVERITY = "high";
-            else if ((v2-v1)<-9)
+            else if ((v2 - v1) < -9)
                 Constants.SEVERITY = "mild";
             else Constants.SEVERITY = "low";
-            Log.d("vel","Yes");
+            //Log.d("vel","Yes");
         }
 
     }
@@ -116,7 +118,7 @@ public class GPS_Service extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(locationManager != null){
+        if (locationManager != null) {
             //noinspection MissingPermission
             locationManager.removeUpdates(listener);
         }

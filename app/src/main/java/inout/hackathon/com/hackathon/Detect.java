@@ -61,7 +61,8 @@ public class Detect extends Activity {
                     no.setVisibility(View.INVISIBLE);
                     Toast.makeText(getApplicationContext(), "Time expired. Sending details.", Toast.LENGTH_LONG).show();
                     new SendDetails().execute();
-                    Constants.MP.stop();
+                    if(Constants.MP.isPlaying()) Constants.MP.stop();
+                    Constants.STATUS = "STOP";
                     cntdown.setText("0");
                 }
             }
@@ -72,9 +73,9 @@ public class Detect extends Activity {
             public void onClick(View view) {
                 if (!done) {
                     //Toast.makeText(getApplicationContext(), "Yes", Toast.LENGTH_LONG).show();
-                    Constants.MP.stop();
                     startService(new Intent(getApplicationContext(), DetectService.class));
                     startService(new Intent(getApplicationContext(), GPS_Service.class));
+                    startService(new Intent(getApplicationContext(),OrientationService.class));
                     Constants.STATUS = "START";
                     done = true;
                     finish();
@@ -87,9 +88,9 @@ public class Detect extends Activity {
             public void onClick(View view) {
                 if (!done) {
                     //Toast.makeText(getApplicationContext(), "No", Toast.LENGTH_LONG).show();
-                    Constants.MP.stop();
                     done = true;
                     new SendDetails().execute();
+                    Constants.STATUS = "STOP";
                     finish();
                 }
             }
